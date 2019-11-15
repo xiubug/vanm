@@ -1,0 +1,95 @@
+{
+  "name": "vanm",
+  "version": "0.0.1",
+  "description": "Lightweight Mobile UI Components built on Vue.",
+  "main": "lib/index.js",
+  "module": "es/index.js",
+  "style": "lib/index.css",
+  "typings": "types/index.d.ts",
+  "files": [
+    "es",
+    "lib",
+    "types",
+    "vetur"
+  ],
+  "scripts": {
+    "bootstrap": "yarn || npm i",
+    "dev": "npm run build:entry && webpack-dev-server --config build/webpack.site.dev.js",
+    "lint": "eslint ./src --ext .js,.vue,.ts,.tsx && stylelint \"src/**/*.less\" --fix",
+    "build:entry": "node build/build-entry.js",
+    "build:changelog": "vanm changelog ./docs/markdown/changelog.generated.md --tag v2.1.0",
+    "build:lib": "node build/build-lib.js",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:clear-cache": "jest --clearCache",
+    "test:coverage": "open test/coverage/index.html",
+    "release": "sh build/release.sh",
+    "release:site": "sh build/release-site.sh"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "commit-msg": "vanm commit-lint"
+    }
+  },
+  "lint-staged": {
+    "*.{ts,tsx,js,vue}": [
+      "eslint",
+      "git add"
+    ],
+    "*.{vue,css,less}": [
+      "stylelint",
+      "git add"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sosout/vanm.git"
+  },
+  "keywords": [
+    "vue",
+    "component"
+  ],
+  "author": "Wei Changhua",
+  "license": "MIT",
+  "peerDependencies": {
+    "vue": ">= 2.5.22"
+  },
+  "devDependencies": {
+    "gh-pages": "2.1.1",
+    "typescript": "^3.7.2",
+    "uppercamelcase": "^3.0.0",
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.10",
+    "webpack-dev-server": "3.9.0",
+    "webpack-merge": "^4.2.2"
+  },
+  "sideEffects": [
+    "es/**/style/*",
+    "lib/**/style/*",
+    "*.css",
+    "*.less"
+  ],
+  "vetur": {
+    "tags": "vetur/tags.json",
+    "attributes": "vetur/attributes.json"
+  },
+  "eslintConfig": {
+    "root": true,
+    "extends": [
+      "@vanm"
+    ]
+  },
+  "stylelint": {
+    "extends": [
+      "@vanm/stylelint-config"
+    ]
+  },
+  "prettier": {
+    "singleQuote": true
+  },
+  "browserslist": [
+    "Android >= 4.0",
+    "iOS >= 7"
+  ]
+}
